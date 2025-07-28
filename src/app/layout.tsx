@@ -20,14 +20,14 @@ const geist = Geist({
   variable: "--font-geist-sans",
 });
 
-export default function RootLayout({
-  children,
-  modal,
-}: Readonly<{ children: React.ReactNode, modal: React.ReactNode }>) {
+export default function RootLayout(props: {
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}) {
   return (
     <ClerkProvider>
-    <html lang="en" className={`${geist.variable}`}>
-    <NextSSRPlugin
+      <html lang="en" className={`${geist.variable}`}>
+        <NextSSRPlugin
           /**
            * The `extractRouterConfig` will extract **only** the route configs
            * from the router to prevent additional information from being
@@ -37,9 +37,11 @@ export default function RootLayout({
           routerConfig={extractRouterConfig(ourFileRouter)}
         />
         <body className="flex flex-col gap-4">
+
           <TopNav />
-          {children}
-          {modal}
+
+          {props.children}
+          {props.modal}
           <div id="modal-root" />
         </body>
       </html>
