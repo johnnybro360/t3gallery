@@ -36,7 +36,7 @@ export default function RootLayout(props: {
            */
           routerConfig={extractRouterConfig(ourFileRouter)}
         />
-        <body>
+        <body className="dark">
           <div className="grid grid-rows-[auto,1fr] h-screen">
             <TopNav />
             <main className="overflow-y-scroll">

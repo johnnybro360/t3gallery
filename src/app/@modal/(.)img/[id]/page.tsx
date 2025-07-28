@@ -1,6 +1,6 @@
 import { getImage } from "~/server/queries"
 import { Modal } from "./modal"
-import FullPageImageView from "~/app/components/full-image-page"
+import FullPageImageView from "~/app/common/full-image-page"
 
 type Props = {
     params: Promise<{id: string}>
