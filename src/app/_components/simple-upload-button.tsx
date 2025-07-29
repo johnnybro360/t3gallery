@@ -1,9 +1,10 @@
 "use client"
-import { useEffect, type SVGProps } from "react";
+import { type SVGProps } from "react";
 
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useUploadThing } from "~/utils/uploadthing";
+import { usePostHog } from "posthog-js/react";
 
 type Input = Parameters<typeof useUploadThing>
 
@@ -81,7 +82,7 @@ function LoadingSpinnerSVG({
     )
 }
 
-function makeUploadToast(){
+function makeUploadToast() {
     return (
         toast(<div className="flex flex-row gap-2 text-white items-center">
             <LoadingSpinnerSVG /><span className="text-lg">Uploading...</span></div>, {
@@ -96,9 +97,12 @@ function makeUploadToast(){
 export function SimpleUploadButton() {
     const router = useRouter();
 
+    const posthog = usePostHog();
+
     const { inputProps, isUploading } = useUploadThingInputProps("imageUploader", {
         onUploadBegin() {
-          
+            posthog.capture('upload_begin');
+            makeUploadToast();
         },
         onClientUploadComplete: () => {
             toast.dismiss('upload-begin');
