@@ -20,6 +20,24 @@ const coreConfig = {
             },
         ],
     },
+    async rewrites() {
+        return [
+          {
+            source: "/relay-bbsa/static/:path*",
+            destination: "https://us-assets.i.posthog.com/static/:path*",
+          },
+          {
+            source: "/relay-bbsa/:path*",
+            destination: "https://us.i.posthog.com/:path*",
+          },
+          {
+            source: "/relay-bbsa/flags",
+            destination: "https://us.i.posthog.com/flags",
+          },
+        ];
+      },
+      // This is required to support PostHog trailing slash API requests
+      skipTrailingSlashRedirect: true, 
 };
 
 // Injected content via Sentry wizard below
